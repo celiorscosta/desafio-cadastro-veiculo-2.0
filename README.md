@@ -1,6 +1,6 @@
 # Desafio de cadastro de veículo 2.0
 
-Um desafio onde devemos criar um ambiente utilizando NodeJS, Postgres e Docker e criar uma api que permitira cadastrar, buscar e editar os dados de um cadastro de veículo.
+Um desafio onde devemos criar um ambiente utilizando TypeScript, NodeJS, Postgres e Docker e criar uma api que permitira cadastrar, buscar e editar os dados de um cadastro de veículo.
 
 Conteúdo que deve ser desenvolvido.
 - Obrigatório usar Dockercompose.yml;
@@ -16,11 +16,10 @@ Conteúdo que deve ser desenvolvido.
 | -------------  | --- |
 | :sparkles: Nome        | **Desafio de cadastro de veículo 2.0**
 | :label: Tecnologias | TypeScript, NodeJs, Jest
-| :tv: Youtube  [Setup para apps Node.js (TypeScript, ESLint, Jest, Babel)
 
 ## Project setup
 EM BREVE
-<!--Rode os comandos a seguir para executar o projeto.
+Rode os comandos a seguir para executar o projeto.
 
 ```
 cd .\api\
@@ -29,29 +28,28 @@ cd .\api\
 yarn install
 ```
 
-### Docker Compose
-```
-docker-compose up
-```-->
-
-<!--### Migrate
+### Migrate
 
 Abra um novo terminal e acesse a pasta backend-api do projeto para executar os passos a seguir.
 
-Certifique-se de ter acessado a pasta "backend-api" ou rode o comando ```cd .\backend-api\``` no terminal.
+Certifique-se de ter acessado a pasta "backend-api" ou rode o comando ```cd .\api\``` no terminal.
 
-Altere o campo "host" no arquivo "config.json" dentro da pasta "src/config" de "postgres_container" para "localhost", salve e execute os comandos a seguir para criar a tabela e preencher com alguns dados iniciais:
+Altere o campo "DB_HOST" no arquivo ".env" de "postgres_container" para "localhost", salve e execute os comandos a seguir para criar a tabela e preencher com alguns dados iniciais:
 
 ```
-npx sequelize-cli db:migrate
+yarn migration:run
 ```
 ```
-npx sequelize-cli db:seed:all
+yarn seed
 ```
 
-Após isso, volte o campo "host" no arquivo "config.json" para "postgres_container" e salve o arquivo.
+Após isso, volte o campo "DB_HOST" no arquivo ".env" para "postgres_container" e salve o arquivo.
 
-Pronto. Fazendo isso, é para funcionar.-->
+Fazendo isso, é para funcionar.
 
+Agora rode o comando abaixo para colocar a api para rodar e pronto.
 
-
+### Docker Compose
+```
+docker-compose up
+```
