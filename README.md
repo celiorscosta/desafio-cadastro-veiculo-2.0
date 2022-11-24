@@ -19,7 +19,8 @@ Conteúdo que deve ser desenvolvido.
 | :tv: Youtube  [Setup para apps Node.js (TypeScript, ESLint, Jest, Babel)
 
 ## Project setup
-Rode os comandos a seguir para executar o projeto.
+EM BREVE
+<!--Rode os comandos a seguir para executar o projeto.
 
 ```
 cd .\api\
@@ -31,7 +32,7 @@ yarn install
 ### Docker Compose
 ```
 docker-compose up
-```
+```-->
 
 <!--### Migrate
 
