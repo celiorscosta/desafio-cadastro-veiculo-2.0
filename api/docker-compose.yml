@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  postgres_container:
+    image: postgres
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_DB_HOST: ${DB_HOST}
+      PGDATA: /data/db
+    volumes:
+      - postgres:/data/db
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    networks:
+      - compose-bridge
+    restart: unless-stopped
+
+  pgadmin_container:
+    image: dpage/pgadmin4    
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_PASS}
+      PGADMIN_CONFIG_SERVER_MODE: ${PG_MODE}
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - ${PG_PORT}:80
+    depends_on:
+      - postgres_container
+    networks:
+      - compose-bridge
+    restart: unless-stopped
+  
+  api_node:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: api_node    
+    restart: unless-stopped
+    networks:
+      - compose-bridge
+    ports:
+      - '${PORT}:${PORT}'
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - postgres_container
+
+networks:
+  compose-bridge:
+    driver: bridge
+volumes:
+  postgres:
+  pgadmin:

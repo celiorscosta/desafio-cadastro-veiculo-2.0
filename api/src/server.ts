@@ -1,8 +1,15 @@
 import express from 'express';
+import cors from 'cors';
 
-const app = express();
+import { AppDataSource } from './data-source';
 
-app.get('/', (req, res) => {
-    return res.json({ message: 'Ola, Typescript!' });
+AppDataSource.initialize().then(() => {
+    const app = express();
+    const port = 3000;
+    app.use(cors({ origin: '*' }));
+    app.get('/', (req, res) => {
+        return res.json({ message: 'Ola, Typescript!' });
+    });
+    return app.listen(port, () => console.log(`Servidor esta rodando na porta ${port}`));
 });
-app.listen(3000);
+
