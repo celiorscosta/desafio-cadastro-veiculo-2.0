@@ -37,9 +37,8 @@ export class VeiculoSeeder implements Seeder {
 
         for (let index = 0; index < veiculoData.length; index++) {
             let veic = await veiculoRepository.findOneBy({ placa: veiculoData[index].placa });
-            console.log(veic);
             if (!veic) {
-                const newVeiculo = veiculoRepository.create(veiculoData);
+                const newVeiculo = veiculoRepository.create(veiculoData[index]);
                 await veiculoRepository.save(newVeiculo);
             }
         }
