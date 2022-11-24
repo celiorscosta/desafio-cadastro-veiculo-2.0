@@ -5,6 +5,8 @@ export class Carro {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
+    placa: string;
+    @Column()
     ano: number;
     @Column()
     modelo: string;
