@@ -18,7 +18,6 @@ Conteúdo que deve ser desenvolvido.
 | :label: Tecnologias | TypeScript, NodeJs, Jest
 
 ## Project setup
-EM BREVE
 Rode os comandos a seguir para executar o projeto.
 
 ```
