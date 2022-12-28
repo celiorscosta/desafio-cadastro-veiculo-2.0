@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { veiculoRepository } from "src/repositories/veiculoRepository";
+import { IVeiculoRepository } from "src/repositories/veiculoRepository";
 
 export class VeiculoController {
     static async buscarTodos(req: Request, res: Response) {
         try {
-            const veiculos = await veiculoRepository.find();
+            const veiculos = await IVeiculoRepository.getAll();
             if (!veiculos)
                 return res.status(400).json({ message: 'Oloco bixo, não há veículos na base de dados.' });
             return res.status(201).json(veiculos);
