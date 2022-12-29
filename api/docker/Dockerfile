@@ -1,21 +1,18 @@
-FROM node:lts
+FROM node:18-alpine
 
 WORKDIR /usr/app
 
 COPY package*.json ./
 
-COPY prisma ./prisma/
+#RODAR ESSE PARA LTS
+#RUN apt-get -qy update && apt-get -qy install openssl
 
-RUN apt-get -qy update && apt-get -qy install openssl
+#RODAR ESSE QUANDO A VERSÃO FOR ALPINE
+RUN apk update && apk add openssl
 
 RUN npm install
 
-RUN npm install @prisma/client
-
 COPY . .
-
-RUN npx prisma generate --schema ./prisma/schema.prisma
-RUN npx prisma version
 
 RUN npm run build
 
