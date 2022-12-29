@@ -1,15 +1,13 @@
 import { Request, Response } from "express";
-import { PrismaClient } from '@prisma/client';
-import { VeiculoRepository } from "src/repositories/prismaRepository";
+import { container } from "tsyringe";
+import { VeiculoUseCase } from "./VeicleUseCase";
 
-const prisma = new PrismaClient();
-const veiculoRepository = new VeiculoRepository();
+const veiculoUseCase = container.resolve(VeiculoUseCase);
 
 export class VeiculoController {
-
     static async buscarTodos(req: Request, res: Response) {
         try {
-            const veiculos = await veiculoRepository.buscarTodos();
+            const veiculos = await veiculoUseCase.buscarTodos();
             if (!veiculos)
                 return res.status(400).json({ message: 'Oloco bixo, não há veículos na base de dados.' });
             return res.status(201).json(veiculos);
@@ -22,7 +20,7 @@ export class VeiculoController {
     static async buscarPorId(req: Request, res: Response) {
         const { id } = req.params;
         try {
-            const veiculo = await veiculoRepository.buscarPorId(Number(id));
+            const veiculo = await veiculoUseCase.buscarPorId(Number(id));
             if (!veiculo)
                 return res.status(404).json({ message: 'Oloco bixo, esse veículo não existe.' });
             return res.status(200).json(veiculo);
@@ -36,7 +34,7 @@ export class VeiculoController {
         const { ativo, placa, ano, modelo, marca } = req.body;
 
         try {
-            const novoVeiculoCriado = await veiculoRepository.cadastraVeiculo(ativo, placa, ano, modelo, marca);
+            const novoVeiculoCriado = await veiculoUseCase.cadastraVeiculo(ativo, placa, ano, modelo, marca);
             return res.status(200).json(novoVeiculoCriado);
         } catch (error) {
             console.log(error);
@@ -48,7 +46,7 @@ export class VeiculoController {
         const { id } = req.params;
         const { placa, ano, modelo, marca } = req.body;
         try {
-            const veiculo = await veiculoRepository.atualizaUmVeiculo(Number(id), placa, ano, modelo, marca)
+            const veiculo = await veiculoUseCase.atualizaUmVeiculo(Number(id), placa, ano, modelo, marca)
 
             if (!veiculo)
                 return res.status(404).json({ message: 'Oloco bixo, esse veículo não existe.' });
@@ -63,7 +61,7 @@ export class VeiculoController {
     static async apagaUmVeiculo(req: Request, res: Response) {
         const { id } = req.params;
         try {
-            const veiculo = await veiculoRepository.apagaUmVeiculo(Number(id));
+            const veiculo = await veiculoUseCase.apagaUmVeiculo(Number(id));
 
             if (!veiculo)
                 return res.status(404).json({ message: 'Oloco bixo, esse veículo não existe.' });
@@ -78,7 +76,7 @@ export class VeiculoController {
     static async inativaUmVeiculo(req: Request, res: Response) {
         const { id } = req.params;
         try {
-            const veiculo = await veiculoRepository.inativaUmVeiculo(Number(id));
+            const veiculo = await veiculoUseCase.inativaUmVeiculo(Number(id));
             if (!veiculo)
                 return res.status(404).json({ message: 'Oloco bixo, esse veículo não existe.' });
 
@@ -91,7 +89,7 @@ export class VeiculoController {
     static async reativaUmVeiculo(req: Request, res: Response) {
         const { id } = req.params;
         try {
-            const veiculo = await veiculoRepository.reativaUmVeiculo(Number(id));
+            const veiculo = await veiculoUseCase.reativaUmVeiculo(Number(id));
             if (!veiculo)
                 return res.status(404).json({ message: 'Oloco bixo, esse veículo não existe.' });
 

@@ -1,8 +1,21 @@
 import { Carros, PrismaClient } from '@prisma/client';
+import { injectable } from 'tsyringe';
 
 const prisma = new PrismaClient();
 
-export class VeiculoRepository {
+export interface IVeiculoRepository {
+    buscarTodos(): Promise<Carros[]>;
+    buscarPorId(id: number): Promise<Carros>;
+    cadastraVeiculo(ativo: boolean, placa: string, ano: number, modelo: string, marca: string): Promise<Carros>;
+    atualizaUmVeiculo(id: number, placa: string, ano: number, modelo: string, marca: string): Promise<Boolean>;
+    apagaUmVeiculo(id: number): Promise<Boolean>;
+    inativaUmVeiculo(id: number): Promise<Boolean>;
+    reativaUmVeiculo(id: number): Promise<Boolean>;
+}
+
+@injectable()
+export class VeiculoRepository implements IVeiculoRepository {
+    constructor() { }
 
     async buscarTodos(): Promise<Carros[]> {
         return await prisma.carros.findMany({ where: { ativo: true } });
