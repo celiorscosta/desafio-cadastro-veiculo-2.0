@@ -12,6 +12,7 @@ export class VeiculoController {
                 return res.status(400).json({ message: 'Oloco bixo, não há veículos na base de dados.' });
             return res.status(201).json(veiculos);
         } catch (error) {
+            console.log("ERRO>:::::::::::::")
             console.log(error);
             return res.status(500).json({ message: 'Vish, deu erro "Internal Server Error".' });
         }

@@ -1,0 +1,21 @@
+generator client {
+    provider      = "prisma-client-js"
+    output        = "client"
+    binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Carros {
+    id     Int     @id(map: "PK_ba7be410cab15cfd6475fda1b9d") @default(autoincrement())
+    placa  String  @db.VarChar
+    ano    Int
+    modelo String  @db.VarChar
+    ativo  Boolean
+    marca  String  @db.VarChar
+
+    @@map("carros")
+}
